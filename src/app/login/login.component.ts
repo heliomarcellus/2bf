@@ -16,7 +16,7 @@ export class LoginComponent {
   login() {
     this.authService.login(this.username, this.password).subscribe(success => {
       if (success) {
-        this.router.navigate(['/protected']);
+        this.router.navigate(['/ice-cream-order']); // Redirecionar para a página de pedidos de sorvete
       } else {
         alert('Login failed');
       }
