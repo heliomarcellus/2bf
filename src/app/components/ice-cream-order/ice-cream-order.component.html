@@ -1,0 +1,32 @@
+<div class="container">
+  <form [formGroup]="orderForm" (ngSubmit)="onSubmit()">
+    <div formArrayName="flavors">
+      <div *ngFor="let flavor of flavors.controls; let i = index" [formGroupName]="i">
+        <label for="flavor">Escolha o sabor</label>
+        <select id="flavor" formControlName="flavor">
+          <option *ngFor="let option of flavorOptions" [value]="option">{{ option }}</option>
+        </select>
+        <label for="scoops">Quantidade de Bolas</label>
+        <select id="scoops" formControlName="scoops">
+          <option>1</option>
+          <option>2</option>
+          <option>3</option>
+        </select>
+        <button type="button" (click)="removeFlavor(i)" *ngIf="flavors.length > 1">Remover sabor</button>
+      </div>
+    </div>
+    <button type="button" (click)="addFlavor()" [disabled]="flavors.length >= 3">Adicionar sabor</button>
+
+    <label for="quantity">Quantidade</label>
+    <select id="quantity" formControlName="quantity">
+      <option *ngFor="let option of quantityOptions" [value]="option">{{ option }}</option>
+    </select>
+
+    <label for="cone">Casquinha ou copo?</label>
+    <select id="cone" formControlName="cone">
+      <option *ngFor="let option of coneOptions" [value]="option">{{ option }}</option>
+    </select>
+
+    <button type="submit">Fazer pedido</button>
+  </form>
+</div>

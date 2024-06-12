@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { IceCreamOrderService } from '../services/ice-cream-order.service';
+import { IceCreamOrderService } from 'src/app/services/ice-cream-order.service';
 
 @Component({
   selector: 'app-order-summary',
@@ -18,10 +18,9 @@ export class OrderSummaryComponent implements OnInit {
 
   fetchLatestOrder(): void {
     this.iceCreamOrderService.getOrders().subscribe(orders => {
-      // Assuming there is only one order for simplicity
       this.order = orders[orders.length - 1];
 
-      // Calculate total price based on order details
+      // Calcular o preço total com base nos detalhes do pedido
       this.calculateTotalPrice();
     });
   }
@@ -29,20 +28,23 @@ export class OrderSummaryComponent implements OnInit {
   calculateTotalPrice(): void {
     if (this.order) {
       let totalPrice = 0;
-      // Calculate price based on number of scoops
+      // Calcular o preço com base no número de bolas
       for (const flavor of this.order.flavors) {
-        totalPrice += flavor.scoops; // Each scoop costs 1 unit
+        totalPrice += flavor.scoops; // Custo de bolas unidade
       }
-      // Add price of cone or cup
-      totalPrice += this.order.cone === 'Cone' ? 5 : 4;
+      // Adicionar preço da casquinha ou copo
+      totalPrice += this.order.cone === 'Casquinha' ? 5 : 4;
 
-      // Assign total price to order object
-      this.order.totalPrice = totalPrice;
+      // Multiplicar pelo número de pedidos
+      totalPrice *= this.order.quantity;
+
+      // Atribuir preço total ao objeto do pedido
+      this.order.totalPrice = totalPrice.toFixed(2); // Arredondar para duas casas decimais
     }
   }
 
   pay(): void {
-    console.log('Selected Payment Method:', this.selectedPaymentMethod);
-    // Implement payment logic here
+    console.log('Forma de pagamento:', this.selectedPaymentMethod);
+    // Aqui iria a lógica do pagamento
   }
 }
