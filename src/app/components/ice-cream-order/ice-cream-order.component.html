@@ -1,32 +1,55 @@
 <div class="container">
-  <form [formGroup]="orderForm" (ngSubmit)="onSubmit()">
+  <h1>Fazer Pedido de Sorvete</h1>
+  <form [formGroup]="orderForm" (ngSubmit)="onSubmit()" class="needs-validation" novalidate>
     <div formArrayName="flavors">
-      <div *ngFor="let flavor of flavors.controls; let i = index" [formGroupName]="i">
-        <label for="flavor">Escolha o sabor</label>
-        <select id="flavor" formControlName="flavor">
-          <option *ngFor="let option of flavorOptions" [value]="option">{{ option }}</option>
-        </select>
-        <label for="scoops">Quantidade de Bolas</label>
-        <select id="scoops" formControlName="scoops">
-          <option>1</option>
-          <option>2</option>
-          <option>3</option>
-        </select>
-        <button type="button" (click)="removeFlavor(i)" *ngIf="flavors.length > 1">Remover sabor</button>
+      <div class="order" *ngFor="let flavor of flavors.controls; let i = index" [formGroupName]="i">
+        <div class="mb-3">
+          <label for="flavor">Escolha o sabor</label>
+          <select id="flavor" formControlName="flavor" class="form-control" required>
+            <option value="">Selecione um sabor</option>
+            <option *ngFor="let option of flavorOptions" [value]="option">{{ option }}</option>
+          </select>
+          <div *ngIf="getFlavorControl(i, 'flavor')?.invalid && getFlavorControl(i, 'flavor')?.touched" class="invalid-feedback">
+            Por favor, escolha um sabor.
+          </div>
+        </div>
+        <div class="mb-3">
+          <label for="scoops">Quantidade de Bolas</label>
+          <select id="scoops" formControlName="scoops" class="form-control" required>
+            <option value="">Selecione a quantidade</option>
+            <option *ngFor="let option of quantityOptions" [value]="option">{{ option }}</option>
+          </select>
+          <div *ngIf="getFlavorControl(i, 'scoops')?.invalid && getFlavorControl(i, 'scoops')?.touched" class="invalid-feedback">
+            A quantidade de bolas deve ser entre 1 e 3.
+          </div>
+        </div>
+        <button type="button" class="btn btn-danger" (click)="removeFlavor(i)" *ngIf="flavors.length > 1">Remover sabor</button>
       </div>
     </div>
-    <button type="button" (click)="addFlavor()" [disabled]="flavors.length >= 3">Adicionar sabor</button>
+    <button type="button" class="btn btn-success" (click)="addFlavor()" [disabled]="flavors.length >= 3">Adicionar sabor</button>
 
-    <label for="quantity">Quantidade</label>
-    <select id="quantity" formControlName="quantity">
-      <option *ngFor="let option of quantityOptions" [value]="option">{{ option }}</option>
-    </select>
+    <div class="mb-3 order-resume">
+      <label for="quantity">Quantidade</label>
+      <select id="quantity" formControlName="quantity" class="form-control" required>
+        <option value="">Selecione a quantidade</option>
+        <option *ngFor="let option of quantityOptions" [value]="option">{{ option }}</option>
+      </select>
+      <div *ngIf="getQuantityControl()?.invalid && getQuantityControl()?.touched" class="invalid-feedback">
+        Por favor, selecione a quantidade.
+      </div>
+    </div>
 
-    <label for="cone">Casquinha ou copo?</label>
-    <select id="cone" formControlName="cone">
-      <option *ngFor="let option of coneOptions" [value]="option">{{ option }}</option>
-    </select>
+    <div class="mb-3">
+      <label for="cone">Casquinha ou copo?</label>
+      <select id="cone" formControlName="cone" class="form-control" required>
+        <option value="">Selecione o recipiente</option>
+        <option *ngFor="let option of coneOptions" [value]="option">{{ option }}</option>
+      </select>
+      <div *ngIf="getConeControl()?.invalid && getConeControl()?.touched" class="invalid-feedback">
+        Por favor, selecione o recipiente.
+      </div>
+    </div>
 
-    <button type="submit">Fazer pedido</button>
+    <button type="submit" class="btn btn-primary">Fazer pedido</button>
   </form>
 </div>

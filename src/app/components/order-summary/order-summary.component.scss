@@ -1,6 +1,35 @@
-.order-summary {
-    border: 1px solid #ccc;
-    padding: 10px;
-    margin: 10px;
+.container {
+  max-width: 600px;
+  margin: 10px auto;
+  padding: 20px;
+  border-radius: 10px; 
+  border: solid 2px #693307;
+  background-color: rgb(248, 162, 231);
+
+  h1 {
+      color: #fafa61;
+      font-weight: bold;
+      text-align: center;
+      font-size: 48px;
+      font-family: "Spicy Rice", serif;
+      -webkit-text-stroke-width: 2px;
+      -webkit-text-stroke-color: #693307;
   }
+
+  label {
+      font-weight: bold;
+  }
+
+  .order-sumary {
+    padding: 20px;
+    border: solid 2px #693307;
+    border-radius: 10px; 
+    background-color: #ffffff;
+  }
+  
+  button {
+    margin-top: 10px;
+    font-weight: bold;
+  }
+}
   

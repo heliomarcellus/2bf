@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
-import { Router } from '@angular/router'; 
+import { Router } from '@angular/router';
 import { IceCreamOrderService } from 'src/app/services/ice-cream-order.service';
 
 @Component({
@@ -13,7 +13,7 @@ export class IceCreamOrderComponent implements OnInit {
   flavorOptions = ['Chocolate', 'Baunilha', 'Morango'];
   quantityOptions = [1, 2, 3];
   coneOptions = ['Casquinha', 'Copo'];
-  scoopsPrice = 1; // Preço por bola de sorvete
+  ballPrice = 1; // Preço por bola de sorvete
 
   constructor(
     private formBuilder: FormBuilder,
@@ -50,6 +50,18 @@ export class IceCreamOrderComponent implements OnInit {
     this.flavors.removeAt(index);
   }
 
+  getFlavorControl(index: number, controlName: string) {
+    return (this.flavors.at(index) as FormGroup).get(controlName);
+  }
+
+  getQuantityControl() {
+    return this.orderForm.get('quantity');
+  }
+
+  getConeControl() {
+    return this.orderForm.get('cone');
+  }
+
   onSubmit(): void {
     if (this.orderForm.valid) {
       const order = {
@@ -73,7 +85,7 @@ export class IceCreamOrderComponent implements OnInit {
   }
 
   calculateTotalPrice(): number {
-    const scoopsPrice = this.orderForm.value.flavors.reduce((total: number, flavor: any) => total + Number(flavor.scoops), 0) * this.scoopsPrice;
+    const scoopsPrice = this.orderForm.value.flavors.reduce((total: number, flavor: any) => total + Number(flavor.scoops), 0) * this.ballPrice;
     const conePrice = this.orderForm.value.cone === 'Casquinha' ? 5 : 4;
     const totalPrice = scoopsPrice + conePrice;
     console.log(`Total de bolas: ${scoopsPrice}, Preço do recipiente: ${conePrice}, Preço total: ${totalPrice}`);

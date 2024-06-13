@@ -1,15 +1,40 @@
-<div>
-    <h2>Login</h2>
-    <form (ngSubmit)="login()">
-      <div>
-        <label for="username">Usuário</label>
-        <input type="text" id="username" [(ngModel)]="username" name="username" required>
+<div class="col-4 container">
+  <h1>Sorvetes Maitê</h1>
+  <form (ngSubmit)="login(loginForm)" #loginForm="ngForm" class="needs-validation" novalidate>
+    <div class="access">
+      <div class="mb-3">
+        <label for="username"><strong>Usuário</strong></label>
+        <input type="text" 
+               class="form-control" 
+               [(ngModel)]="username" 
+               name="username" 
+               id="username" 
+               aria-describedby="username" 
+               placeholder="Digite o usuário" 
+               required 
+               #usernameModel="ngModel" 
+               [ngClass]="{'is-invalid': usernameModel.invalid && (usernameModel.dirty || usernameModel.touched)}">
+        <div *ngIf="usernameModel.invalid && (usernameModel.dirty || usernameModel.touched)" class="invalid-feedback">
+          Por favor, insira o nome de usuário.
+        </div>
       </div>
-      <div>
-        <label for="password">Senha</label>
-        <input type="password" id="password" [(ngModel)]="password" name="password" required>
+      <div class="mb-3">
+        <label for="password"><strong>Senha</strong></label>
+        <input type="password" 
+               class="form-control" 
+               [(ngModel)]="password" 
+               name="password" 
+               id="password" 
+               aria-describedby="password" 
+               placeholder="Digite a senha" 
+               required 
+               #passwordModel="ngModel" 
+               [ngClass]="{'is-invalid': passwordModel.invalid && (passwordModel.dirty || passwordModel.touched)}">
+        <div *ngIf="passwordModel.invalid && (passwordModel.dirty || passwordModel.touched)" class="invalid-feedback">
+          Por favor, insira a senha.
+        </div>
       </div>
-      <button type="submit">Login</button>
-    </form>
-  </div>
-  
+    </div>
+    <button type="submit" class="btn btn-primary" [disabled]="!loginForm.form.valid"><strong>Acessar</strong></button>
+  </form>
+</div>
