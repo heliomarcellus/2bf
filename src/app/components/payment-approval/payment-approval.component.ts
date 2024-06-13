@@ -26,6 +26,6 @@ export class PaymentApprovalComponent implements OnInit {
   }
 
   backToHome(): void {
-    this.router.navigate(['/']);
+    this.router.navigate(['/ice-cream-order']);
   }
 }

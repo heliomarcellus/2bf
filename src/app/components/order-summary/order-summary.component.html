@@ -12,7 +12,7 @@
       <p>Total: {{ order.totalPrice | currency:'BRL':'symbol':'1.2-2' }}</p>
 
       <h3>Selecione a forma de pagamento</h3>
-      <select class="form-select" [(ngModel)]="selectedPaymentMethod">
+      <select class="form-select" [(ngModel)]="selectedPaymentMethod" required>
         <option value="dinheiro">Dinheiro</option>
         <option value="cartao">Cartão</option>
       </select>

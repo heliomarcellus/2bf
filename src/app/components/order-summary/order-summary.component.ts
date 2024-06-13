@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { IceCreamOrderService } from 'src/app/services/ice-cream-order.service';
 
 @Component({
@@ -10,7 +11,7 @@ export class OrderSummaryComponent implements OnInit {
   order: any;
   selectedPaymentMethod: string = '';
 
-  constructor(private iceCreamOrderService: IceCreamOrderService) { }
+  constructor(private iceCreamOrderService: IceCreamOrderService, private router: Router) { }
 
   ngOnInit(): void {
     this.fetchLatestOrder();
@@ -19,8 +20,6 @@ export class OrderSummaryComponent implements OnInit {
   fetchLatestOrder(): void {
     this.iceCreamOrderService.getOrders().subscribe(orders => {
       this.order = orders[orders.length - 1];
-
-      // Calcular o preço total com base nos detalhes do pedido
       this.calculateTotalPrice();
     });
   }
@@ -28,23 +27,21 @@ export class OrderSummaryComponent implements OnInit {
   calculateTotalPrice(): void {
     if (this.order) {
       let totalPrice = 0;
-      // Calcular o preço com base no número de bolas
       for (const flavor of this.order.flavors) {
-        totalPrice += flavor.scoops; // Custo de bolas unidade
+        totalPrice += flavor.scoops;
       }
-      // Adicionar preço da casquinha ou copo
       totalPrice += this.order.cone === 'Casquinha' ? 5 : 4;
-
-      // Multiplicar pelo número de pedidos
       totalPrice *= this.order.quantity;
-
-      // Atribuir preço total ao objeto do pedido
-      this.order.totalPrice = totalPrice.toFixed(2); // Arredondar para duas casas decimais
+      this.order.totalPrice = totalPrice.toFixed(2);
     }
   }
 
   pay(): void {
-    console.log('Forma de pagamento:', this.selectedPaymentMethod);
-    // Aqui iria a lógica do pagamento
+    if (this.order) {
+      this.order.paymentMethod = this.selectedPaymentMethod;
+      this.iceCreamOrderService.updateOrder(this.order).subscribe(() => {
+        this.router.navigate(['/payment-approval']);
+      });
+    }
   }
 }

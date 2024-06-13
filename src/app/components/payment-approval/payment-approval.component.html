@@ -1,18 +1,20 @@
 <div class="container">
   <h1>Pagamento Aprovado</h1>
-  
+
   <div *ngIf="order">
-    <h2>Resumo do Pedido</h2>
-    <ul>
-      <li *ngFor="let flavor of order.flavors">
-        Sabor: {{ flavor.flavor }} - Bolas: {{ flavor.scoops }}
-      </li>
-    </ul>
-    <p>Quantidade: {{ order.quantity }}</p>
-    <p>Casquinha ou copo: {{ order.cone }}</p>
-    <p>Total: R$ {{ order.totalPrice }}</p>
-    <p>Forma de pagamento: {{ order.paymentMethod }}</p>
-    <p class="message">Seu pagamento foi aprovado!</p>
-    <button (click)="backToHome()">Voltar ao início</button>
+    <div class="order-sumary-pay">
+      <h2>Resumo do Pedido</h2>
+      <ul>
+        <li *ngFor="let flavor of order.flavors">
+          Sabor: {{ flavor.flavor }} - Bolas: {{ flavor.scoops }}
+        </li>
+      </ul>
+      <p>Quantidade: {{ order.quantity }}</p>
+      <p>Casquinha ou copo: {{ order.cone }}</p>
+      <p>Total: R$ {{ order.totalPrice }}</p>
+      <p>Forma de pagamento: {{ order.paymentMethod }}</p>
+      <p class="message">Seu pagamento foi aprovado!</p>
+    </div>
+    <button class="btn btn-primary col-12" (click)="backToHome()">Fazer outro pedido</button>
   </div>
 </div>

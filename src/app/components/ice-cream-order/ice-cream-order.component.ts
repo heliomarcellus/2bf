@@ -65,6 +65,7 @@ export class IceCreamOrderComponent implements OnInit {
   onSubmit(): void {
     if (this.orderForm.valid) {
       const order = {
+        id: this.generateUniqueId(), // Gerar um id único para o pedido
         flavors: this.orderForm.value.flavors.map((flavor: any) => {
           return { flavor: flavor.flavor, scoops: Number(flavor.scoops) };
         }),
@@ -91,4 +92,10 @@ export class IceCreamOrderComponent implements OnInit {
     console.log(`Total de bolas: ${scoopsPrice}, Preço do recipiente: ${conePrice}, Preço total: ${totalPrice}`);
     return totalPrice;
   }
+
+  private generateUniqueId(): string {
+    // Função para gerar um id único para cada pedido
+    return Math.random().toString(36).substr(2, 9);
+  }
 }
+  

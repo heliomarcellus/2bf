@@ -3,7 +3,12 @@ import { Observable, of } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 
 interface IceCreamOrder {
+  id?: any;
   flavors: { flavor: string, scoops: number }[];
+  quantity: number;
+  cone: string;
+  totalPrice?: number;
+  paymentMethod?: string;
 }
 
 @Injectable({
@@ -22,26 +27,16 @@ export class IceCreamOrderService {
   addOrder(order: IceCreamOrder): Observable<any> {
     console.log('Adding order:', order);
     this.orders.push(order);
-    console.log('Orders after addition:', this.orders);
-
-    // Envie o pedido para o mock
-    this.sendOrderToMock(order);
-
-    // Envie o pedido para o endpoint desejado
-    return this.sendOrderToEndpoint(order);
+    return of(order); // Simulação de resposta do servidor
   }
 
-  private sendOrderToMock(order: IceCreamOrder): void {
-    console.log('Sending order to mock:', order);
-    // Simula o envio do pedido para o mock armazenando-o no armazenamento local
-    const mockOrders = JSON.parse(localStorage.getItem('mockOrders') || '[]');
-    mockOrders.push(order);
-    localStorage.setItem('mockOrders', JSON.stringify(mockOrders));
-    console.log('Order sent to mock:', order);
-  }
-
-  private sendOrderToEndpoint(order: IceCreamOrder): Observable<any> {
-    console.log('Sending order to endpoint:', order);
-    return this.http.post<any>(this.apiUrl, order);
+  updateOrder(order: IceCreamOrder): Observable<any> {
+    const index = this.orders.findIndex(o => o.id === order.id);
+    if (index !== -1) {
+      this.orders[index] = order;
+      return of(order); // Simulação de resposta do servidor
+    } else {
+      throw new Error('Order not found');
+    }
   }
 }
