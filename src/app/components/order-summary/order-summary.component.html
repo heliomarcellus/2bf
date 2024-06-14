@@ -1,23 +1,23 @@
-<div class="container">
-  <div *ngIf="order">
-    <h1>Resumo do pedido</h1>
-    <div class="order-sumary">
-      <ul>
-        <li *ngFor="let flavor of order.flavors">
-          Sabor: {{ flavor.flavor }} - Bolas: {{ flavor.scoops }}
-        </li>
-      </ul>
-      <p>Quantidade: {{ order.quantity }}</p>
-      <p>Casquinha ou copo: {{ order.cone }}</p>
-      <p>Total: {{ order.totalPrice | currency:'BRL':'symbol':'1.2-2' }}</p>
+  <div class="container">
+    <div *ngIf="order">
+      <h1>Resumo do pedido</h1>
+      <div class="order-sumary">
+        <ul>
+          <li *ngFor="let flavor of order.flavors">
+            Sabor: {{ flavor.flavor }} - Bolas: {{ flavor.scoops }}
+          </li>
+        </ul>
+        <p>Quantidade: {{ order.quantity }}</p>
+        <p>Casquinha ou copo: {{ order.cone }}</p>
+        <p>Total: {{ order.totalPrice | currency:'BRL':'symbol':'1.2-2' }}</p>
 
-      <h3>Selecione a forma de pagamento</h3>
-      <select class="form-select" [(ngModel)]="selectedPaymentMethod" required>
-        <option value="dinheiro">Dinheiro</option>
-        <option value="cartao">Cartão</option>
-      </select>
+        <h3>Selecione a forma de pagamento</h3>
+        <select class="form-select" [(ngModel)]="selectedPaymentMethod" required>
+          <option value="dinheiro">Dinheiro</option>
+          <option value="cartao">Cartão</option>
+        </select>
+      </div>
+
+      <button class="btn btn-primary col-12" (click)="pay()">Pagar</button>
     </div>
-
-    <button class="btn btn-primary col-12" (click)="pay()">Pagar</button>
   </div>
-</div>

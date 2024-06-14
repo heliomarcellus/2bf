@@ -1,11 +1,12 @@
 <div class="container">
   <h1>Fazer Pedido de Sorvete</h1>
-  <form [formGroup]="orderForm" (ngSubmit)="onSubmit()" class="needs-validation" novalidate>
+  <form [formGroup]="orderForm" (ngSubmit)="onSubmit()" class="needs-validation was-validated" novalidate>
     <div formArrayName="flavors">
       <div class="order" *ngFor="let flavor of flavors.controls; let i = index" [formGroupName]="i">
         <div class="mb-3">
           <label for="flavor">Escolha o sabor</label>
-          <select id="flavor" formControlName="flavor" class="form-control" required>
+          <select id="flavor" formControlName="flavor" class="form-control" required
+                  [ngClass]="{ 'is-invalid': getFlavorControl(i, 'flavor')?.invalid && getFlavorControl(i, 'flavor')?.touched }">
             <option value="">Selecione um sabor</option>
             <option *ngFor="let option of flavorOptions" [value]="option">{{ option }}</option>
           </select>
@@ -15,7 +16,8 @@
         </div>
         <div class="mb-3">
           <label for="scoops">Quantidade de Bolas</label>
-          <select id="scoops" formControlName="scoops" class="form-control" required>
+          <select id="scoops" formControlName="scoops" class="form-control" required
+                  [ngClass]="{ 'is-invalid': getFlavorControl(i, 'scoops')?.invalid && getFlavorControl(i, 'scoops')?.touched }">
             <option value="">Selecione a quantidade</option>
             <option *ngFor="let option of quantityOptions" [value]="option">{{ option }}</option>
           </select>
@@ -30,7 +32,8 @@
 
     <div class="mb-3 order-resume">
       <label for="quantity">Quantidade</label>
-      <select id="quantity" formControlName="quantity" class="form-control" required>
+      <select id="quantity" formControlName="quantity" class="form-control" required
+              [ngClass]="{ 'is-invalid': getQuantityControl()?.invalid && getQuantityControl()?.touched }">
         <option value="">Selecione a quantidade</option>
         <option *ngFor="let option of quantityOptions" [value]="option">{{ option }}</option>
       </select>
@@ -41,7 +44,8 @@
 
     <div class="mb-3">
       <label for="cone">Casquinha ou copo?</label>
-      <select id="cone" formControlName="cone" class="form-control" required>
+      <select id="cone" formControlName="cone" class="form-control" required
+              [ngClass]="{ 'is-invalid': getConeControl()?.invalid && getConeControl()?.touched }">
         <option value="">Selecione o recipiente</option>
         <option *ngFor="let option of coneOptions" [value]="option">{{ option }}</option>
       </select>

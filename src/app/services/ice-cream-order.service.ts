@@ -34,9 +34,12 @@ export class IceCreamOrderService {
     const index = this.orders.findIndex(o => o.id === order.id);
     if (index !== -1) {
       this.orders[index] = order;
+      console.log('Updating order:', order);
       return of(order); // Simulação de resposta do servidor
     } else {
-      throw new Error('Order not found');
+      this.orders.push(order); // Adiciona o pedido se não encontrado
+      console.log('Adding order since not found during update:', order);
+      return of(order); // Simulação de resposta do servidor
     }
   }
 }

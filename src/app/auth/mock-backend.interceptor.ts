@@ -15,8 +15,15 @@ export class MockBackendInterceptor implements HttpInterceptor {
     if (req.url === 'http://177.140.220.91:8081/v3/api-docs' && req.method === 'POST') {
       const order = req.body; 
       this.iceCreamOrderService.addOrder(order);
-      console.log('Pedido feito com sucesso!');
+      console.log('Pedido feito com sucesso!', order);
       return of(new HttpResponse({ status: 200, body: { message: 'Order placed successfully' } })).pipe(delay(500));
+    }
+
+    if (req.url === 'http://177.140.220.91:8081/v3/api-docs' && req.method === 'PUT') {
+      const order = req.body;
+      this.iceCreamOrderService.updateOrder(order);
+      console.log('Pedido atualizado com sucesso!', order);
+      return of(new HttpResponse({ status: 200, body: { message: 'Order updated successfully' } })).pipe(delay(500));
     }
 
     return next.handle(req).pipe(
