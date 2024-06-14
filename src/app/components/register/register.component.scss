@@ -1,0 +1,29 @@
+.container {
+    margin-top: 20px;
+    padding: 20px;
+    border: solid 1px #000000;
+    border-radius: 10px;
+    background-color: rgb(248, 162, 231);
+
+    .access {
+        margin-bottom: 50px;
+        font-family: "Roboto", sans-serif!important;
+    }
+
+    h1 {
+        color: #fafa61;
+        font-weight: bold;
+        text-align: center;
+        font-family: "Spicy Rice", serif;
+        -webkit-text-stroke-width: 2px;
+        -webkit-text-stroke-color: #693307;
+    }
+
+    label {
+        margin-top: 10px;
+    }
+
+    input {
+        margin: 5px 0 5px 0;
+    }
+}

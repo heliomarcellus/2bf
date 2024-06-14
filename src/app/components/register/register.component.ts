@@ -34,4 +34,8 @@ export class RegisterComponent {
       }
     });
   }
+
+  backToHome(): void {
+    this.router.navigate(['/']);
+  }
 }
