@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { map, catchError } from 'rxjs/operators';
+import { map, catchError, tap } from 'rxjs/operators';
 import { throwError } from 'rxjs';
-import { MockAuthService } from './mock-auth.service';  // Importa o serviço de mock
+import { MockAuthService } from './mock-auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -15,13 +15,13 @@ export class AuthService {
 
   constructor(private http: HttpClient, private mockAuthService: MockAuthService) { }
 
-  login(login: string, password: string): Observable<boolean> {
+  login(email: string, password: string): Observable<boolean> {
     if (this.useMock) {
-      return this.mockAuthService.login(login, password);
+      return this.mockAuthService.login(email, password);
     }
 
     const headers = new HttpHeaders({'Content-Type': 'application/json'});
-    return this.http.post<{ token: string }>(`${this.apiUrl}/auth/login`, { login, password }, { headers })
+    return this.http.post<{ token: string }>(`${this.apiUrl}/auth/login`, { email, password }, { headers })
       .pipe(
         map(response => {
           if (response && response.token) {
@@ -32,6 +32,33 @@ export class AuthService {
         }),
         catchError(error => {
           console.error('Login error:', error);
+          return throwError(error);
+        })
+      );
+  }
+
+  register(name: string, email: string, cpf: string, password: string): Observable<boolean> {
+    if (this.useMock) {
+      return this.mockAuthService.register(name, email, cpf, password).pipe(
+        tap(success => {
+          if (success) {
+            console.log(`User registered successfully: ${name}, ${email}, ${cpf}`);  // Log no navegador
+          }
+        })
+      );
+    }
+
+    const headers = new HttpHeaders({'Content-Type': 'application/json'});
+    return this.http.post<{ success: boolean }>(`${this.apiUrl}/auth/register`, { name, email, cpf, password }, { headers })
+      .pipe(
+        tap(response => {
+          if (response.success) {
+            console.log(`User registered successfully: ${name}, ${email}, ${cpf}`);  // Log no navegador
+          }
+        }),
+        map(response => response.success),
+        catchError(error => {
+          console.error('Register error:', error);
           return throwError(error);
         })
       );

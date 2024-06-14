@@ -5,12 +5,15 @@ import { AuthGuard } from './auth/guard.service';
 import { IceCreamOrderComponent } from './components/ice-cream-order/ice-cream-order.component';
 import { OrderSummaryComponent } from './components/order-summary/order-summary.component';
 import { PaymentApprovalComponent } from './components/payment-approval/payment-approval.component';
+import { RegisterComponent } from './components/register/register.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'ice-cream-order', component: IceCreamOrderComponent, canActivate: [AuthGuard] },
   { path: 'order-summary', component: OrderSummaryComponent, canActivate: [AuthGuard] },
   { path: 'payment-approval', component: PaymentApprovalComponent, canActivate: [AuthGuard] },
+  { path: 'register', component: RegisterComponent },
+
   { path: '', redirectTo: 'login', pathMatch: 'full' }
 ];
 

@@ -11,7 +11,7 @@ import { IceCreamOrderService } from 'src/app/services/ice-cream-order.service';
 export class OrderSummaryComponent implements OnInit {
   order: any;
   selectedPaymentMethod: string = '';
-paymentMethod: any;
+  paymentMethod: any;
 
   constructor(private iceCreamOrderService: IceCreamOrderService, private router: Router) { }
   orderForm!: FormGroup; // Declare a propriedade orderForm como FormGroup

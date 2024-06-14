@@ -4,18 +4,19 @@ import { NgForm } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  selector: 'app-register',
+  templateUrl: './register.component.html',
+  styleUrls: ['./register.component.scss']
 })
-export class LoginComponent {
-  username: string = '';
+export class RegisterComponent {
+  name: string = '';
+  email: string = '';
+  cpf: string = '';
   password: string = '';
 
   constructor(private authService: AuthService, private router: Router) { }
 
-  login(form: NgForm) {
-    // Verifique se o formulário é válido antes de tentar o login
+  register(form: NgForm) {
     if (form.invalid) {
       Object.keys(form.controls).forEach(field => {
         const control = form.controls[field];
@@ -24,16 +25,13 @@ export class LoginComponent {
       return;
     }
 
-    this.authService.login(this.username, this.password).subscribe(success => {
+    this.authService.register(this.name, this.email, this.cpf, this.password).subscribe(success => {
       if (success) {
-        this.router.navigate(['/ice-cream-order']); // Redirecionar para a página de pedidos de sorvete
+        alert('Registro concluído com sucesso!');
+        this.router.navigate(['/login']);
       } else {
-        alert('Login failed');
+        alert('Ocorreu um erro durante o registro. Por favor, tente novamente.');
       }
     });
-  }
-
-  register(){
-    this.router.navigate(['/register']);
   }
 }

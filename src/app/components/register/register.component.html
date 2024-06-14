@@ -1,0 +1,81 @@
+<div class="col-4 container">
+  <h1>Registro de Usuário</h1>
+  <form (ngSubmit)="register(registerForm)" #registerForm="ngForm" class="needs-validation" novalidate>
+    <div class="access">
+      <!-- Campo: Nome -->
+      <div class="mb-3">
+        <label for="name"><strong>Nome completo</strong></label>
+        <input type="text"
+               class="form-control"
+               [(ngModel)]="name"
+               name="name"
+               id="name"
+               aria-describedby="name"
+               placeholder="Digite o nome"
+               required
+               #nameModel="ngModel"
+               [ngClass]="{'is-invalid': nameModel.invalid && (nameModel.dirty || nameModel.touched)}">
+        <div *ngIf="nameModel.invalid && (nameModel.dirty || nameModel.touched)" class="invalid-feedback">
+          Por favor, insira o nome.
+        </div>
+      </div>
+      
+      <!-- Campo: Email -->
+      <div class="mb-3">
+        <label for="email"><strong>Email</strong></label>
+        <input type="email"
+               class="form-control"
+               [(ngModel)]="email"
+               name="email"
+               id="email"
+               aria-describedby="email"
+               placeholder="Digite o email"
+               required
+               #emailModel="ngModel"
+               [ngClass]="{'is-invalid': emailModel.invalid && (emailModel.dirty || emailModel.touched)}">
+        <div *ngIf="emailModel.invalid && (emailModel.dirty || emailModel.touched)" class="invalid-feedback">
+          Por favor, insira um email válido.
+        </div>
+      </div>
+      
+      <!-- Campo: CPF -->
+      <div class="mb-3">
+        <label for="cpf"><strong>CPF</strong></label>
+        <input type="text"
+               class="form-control"
+               [(ngModel)]="cpf"
+               name="cpf"
+               id="cpf"
+               aria-describedby="cpf"
+               placeholder="Digite o CPF"
+               required
+               #cpfModel="ngModel"
+               [ngClass]="{'is-invalid': cpfModel.invalid && (cpfModel.dirty || cpfModel.touched)}">
+        <div *ngIf="cpfModel.invalid && (cpfModel.dirty || cpfModel.touched)" class="invalid-feedback">
+          Por favor, insira um CPF válido.
+        </div>
+      </div>
+      
+      <!-- Campo: Senha -->
+      <div class="mb-3">
+        <label for="password"><strong>Senha</strong></label>
+        <input type="password"
+               class="form-control"
+               [(ngModel)]="password"
+               name="password"
+               id="password"
+               aria-describedby="password"
+               placeholder="Crie uma senha"
+               required
+               #passwordModel="ngModel"
+               [ngClass]="{'is-invalid': passwordModel.invalid && (passwordModel.dirty || passwordModel.touched)}">
+        <div *ngIf="passwordModel.invalid && (passwordModel.dirty || passwordModel.touched)" class="invalid-feedback">
+          Por favor, insira uma senha.
+        </div>
+      </div>
+    </div>
+    
+    <!-- Botão de Registrar -->
+    <button type="submit" class="btn btn-primary" [disabled]="!registerForm.form.valid">Registrar</button>
+  </form>
+</div>

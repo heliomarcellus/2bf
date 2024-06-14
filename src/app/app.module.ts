@@ -11,6 +11,7 @@ import { LoginComponent } from './components/login/login.component';
 import { IceCreamOrderComponent } from './components/ice-cream-order/ice-cream-order.component';
 import { OrderSummaryComponent } from './components/order-summary/order-summary.component';
 import { PaymentApprovalComponent } from './components/payment-approval/payment-approval.component';
+import { RegisterComponent } from './components/register/register.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { PaymentApprovalComponent } from './components/payment-approval/payment-
     IceCreamOrderComponent,
     LoginComponent,
     OrderSummaryComponent,
-    PaymentApprovalComponent
+    PaymentApprovalComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,

@@ -35,6 +35,9 @@
         </div>
       </div>
     </div>
-    <button type="submit" class="btn btn-primary" [disabled]="!loginForm.form.valid"><strong>Acessar</strong></button>
+    <div class="row">
+      <button type="submit" class="btn btn-primary col-6" style="margin-left: 0;" [disabled]="!loginForm.form.valid"><strong>Acessar</strong></button>
+      <button type="submit" class="btn btn-success col-6" (click)="register()"><strong>Register</strong></button>
+    </div>
   </form>
 </div>
